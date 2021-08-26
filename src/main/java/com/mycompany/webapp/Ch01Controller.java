@@ -15,6 +15,7 @@ public class Ch01Controller {
 	public String home() {
 		logger.info("실행");
 		return "ch01/content";
+		
 	}
 	
 }
