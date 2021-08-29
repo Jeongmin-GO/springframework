@@ -1,4 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<%response.sendRedirect("/ch01/content");%>
+<%
+/* System.out.println(request.getServletContext().getContextPath());
+System.out.println(application.getContextPath());
+System.out.println(request.getContextPath());
+*/
+
+response.sendRedirect(application.getContextPath()+"/ch01/content");%>

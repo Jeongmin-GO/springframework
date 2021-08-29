@@ -1,4 +1,4 @@
-package com.mycompany.webapp;
+package com.mycompany.webapp.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +12,9 @@ public class Ch01Controller {
 	private static final Logger logger = LoggerFactory.getLogger(Ch01Controller.class);
 	
 	@RequestMapping("/content")
-	public String home() {
+	public String content() {
 		logger.info("실행");
 		return "ch01/content";
-		
 	}
 	
 }
