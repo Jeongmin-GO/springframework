@@ -4,9 +4,11 @@
 
 <div class="card m-2">
 	<div class="card-header">
-		프로젝트 생성 및 실습 
+		프로젝트 생성 및 실행 
 	</div>
 	<div class="card-body">
+		<img src="${pageContext.request.contextPath}/resources/images/logo-spring.png" width="100px"/>
+		<hr/>
 		1. STS설치</br>
 		2. 플러그인 설치</br>
 		3. 프로젝트 생성</br>
