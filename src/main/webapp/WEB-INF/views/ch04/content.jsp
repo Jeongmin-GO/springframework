@@ -1,54 +1,60 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <div class="card m-2">
-	<div class="card-header">
-		유효성 검사 
-	</div>
+	<div class="card-header">유효성 검사</div>
 	<div class="card-body">
-		
+
 		<div class="card m-2">
-			<div class="card-header">
-				POST 방식으로 요청
-			</div>
+			<div class="card-header">POST 방식으로 요청</div>
 			<div class="card-body">
-				<form id="form0" method="post" action="method1" onsubmit="checkData(this)">
+				<form id="form0" method="post" action="method1"
+					onsubmit="checkData(this)">
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param1</span></div>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param1</span>
+						</div>
 						<input type="text" name="param1" class="form-control" value="">
 						<span class="param1-error text-danger">*</span>
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param2</span></div>
-						<input type="text" name="param2" class="form-control" value="" >
+						<div class="input-group-prepend">
+							<span class="input-group-text">param2</span>
+						</div>
+						<input type="text" name="param2" class="form-control" value="">
 						<span class="param2-error text-danger">*</span>
-						
+
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param3</span></div>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param3</span>
+						</div>
 						<input type="text" name="param3" class="form-control" value="">
 						<span class="param3-error text-danger">*</span>
-						
+
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param4</span></div>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param4</span>
+						</div>
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-secondary active">
-							  <input type="radio" name="param4" checked value="true"> true
-							</label>
-							<label class="btn btn-secondary">
-							  <input type="radio" name="param4" value="false"> false
+							<label class="btn btn-secondary active"> <input
+								type="radio" name="param4" checked value="true"> true
+							</label> <label class="btn btn-secondary"> <input type="radio"
+								name="param4" value="false"> false
 							</label>
 						</div>
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param5</span></div>
-						<input type="date" name="param5" class="form-control">
-						<span class="param5-error text-danger">*</span>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param5</span>
+						</div>
+						<input type="date" name="param5" class="form-control"> <span
+							class="param5-error text-danger">*</span>
 					</div>
-					<input class="mt-2 btn btn-info btn-sm" type="submit" value="요청"/>
+					<input class="mt-2 btn btn-info btn-sm" type="submit" value="요청" />
 				</form>
 			</div>
 			<script>
@@ -126,49 +132,60 @@
 				}
 			</script>
 		</div>
-	
+
 		<div class="card m-2">
-			<div class="card-header">
-				AJAX로 요청
-			</div>
+			<div class="card-header">AJAX로 요청</div>
 			<div class="card-body">
 				<form id="form1" name="form1">
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param1</span></div>
-						<input type="text" id="param1" name="param1" class="form-control" value="문자열">
-						<span class="param1-error text-danger">*</span>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param1</span>
+						</div>
+						<input type="text" id="param1" name="param1" class="form-control"
+							value="문자열"> <span class="param1-error text-danger">*</span>
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param2</span></div>
-						<input type="text" id="param2" name="param2" class="form-control" value="5" >
-						<span class="param2-error text-danger">*</span>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param2</span>
+						</div>
+						<input type="text" id="param2" name="param2" class="form-control"
+							value="5"> <span class="param2-error text-danger">*</span>
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param3</span></div>
-						<input type="text" id="param3" name="param3" class="form-control" value="3.14">
-						<span class="param3-error text-danger">*</span>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param3</span>
+						</div>
+						<input type="text" id="param3" name="param3" class="form-control"
+							value="3.14"> <span class="param3-error text-danger">*</span>
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param4</span></div>
+						<div class="input-group-prepend">
+							<span class="input-group-text">param4</span>
+						</div>
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-secondary active">
-							  <input type="radio" id="radio1" name="param4" checked value="true"> true
-							</label>
-							<label class="btn btn-secondary">
-							  <input type="radio" id="radio2" name="param4" value="false"> false
+							<label class="btn btn-secondary active"> <input
+								type="radio" id="radio1" name="param4" checked value="true">
+								true
+							</label> <label class="btn btn-secondary"> <input type="radio"
+								id="radio2" name="param4" value="false"> false
 							</label>
 						</div>
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend"><span class="input-group-text">param5</span></div>
-						<input type="date" id="param5" name="param5" class="form-control" value="2030-12-05">
+						<div class="input-group-prepend">
+							<span class="input-group-text">param5</span>
+						</div>
+						<input type="date" id="param5" name="param5" class="form-control"
+							value="2030-12-05">
 					</div>
 				</form>
 				<div class="mt-2">
-					<button class="btn btn-info btn-sm" onclick="requestPost(this)">POST 방식 요청</button>
+					<button class="btn btn-info btn-sm" onclick="requestPost(this)">POST
+						방식 요청</button>
 				</div>
 			</div>
-			<script>
+		</div>
+		<script>
 				function requestPost(form) {
 					//jqeury로 찾기 
 					const param1 = $("#param1").val(); //주민번호: xxxxxx(6자리)-x(1234만)xxxxxx(7자리)
@@ -209,38 +226,79 @@
 					}
 				}
 			</script>
-		</div>
-		<div class="card m-2">
-			<div class="card-header">
-				서버측 유효성 검사 
+
+	</div>
+	<div class="card m-2">
+		<div class="card-header">서버측 유효성 검사</div>
+		<div class="card-body">
+			<div class="card m-2">
+				<div class="card-header">회원가입 폼</div>
+				<div class="card-body">
+					<form method="post" action="join">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">mid</span>
+							</div>
+							<input type="text" name="mid" class="form-control"
+								value="${joinForm.mid}">
+							<form:errors cssClass="text-danger" path="joinForm.mid" />
+						</div>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">mpassword</span>
+							</div>
+							<input type="password" name="mpassword" class="form-control"
+								value="${joinForm.mpassword}" autocomplete="current-password">
+							<form:errors cssClass="text-danger" path="joinForm.mpassword" />
+						</div>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">memail</span>
+							</div>
+							<input type="text" name="memail" class="form-control"
+								value="${joinForm.memail}">
+							<form:errors cssClass="text-danger" path="joinForm.memail" />
+						</div>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">mtel</span>
+							</div>
+							<input type="text" name="mtel" class="form-control"
+								value="${joinForm.mtel}">
+							<form:errors cssClass="text-danger" path="joinForm.mtel" />
+						</div>
+						<input class="btn btn-info" type="submit" value="가입" />
+					</form>
+				</div>
+
 			</div>
-			<div class="card-body">
-				<form method="post" action="method3">
-                     <div class="input-group">
-                        <div class="input-group-prepend"><span class="input-group-text">mid</span></div>
-                        <input type="text" name="mid" class="form-control" value="${joinForm.mid}">
-                        <form:errors cssClass="error" path="joinForm.mid"/>
-                     </div>
-                     <div class="input-group">
-                        <div class="input-group-prepend"><span class="input-group-text">mpassword</span></div>
-                        <input type="password" name="mpassword" class="form-control" value="${joinForm.mpassword}" autocomplete="current-password">
-                        <form:errors cssClass="error" path="joinForm.mpassword"/>
-                     </div>
-                     <div class="input-group">
-                        <div class="input-group-prepend"><span class="input-group-text">memail</span></div>
-                        <input type="text" name="memail" class="form-control" value="${joinForm.memail}">
-                        <form:errors cssClass="error" path="joinForm.memail"/>
-                     </div>
-                     <div class="input-group">
-                        <div class="input-group-prepend"><span class="input-group-text">mtel</span></div>
-                        <input type="text" name="mtel" class="form-control" value="${joinForm.mtel}">
-                        <form:errors cssClass="error" path="joinForm.mtel"/>
-                     </div>
-                     <input class="btn btn-info" type="submit" value="가입"/>
-                  </form>
-			</div>
+				<div class="card m-2">
+					<div class="card-header">로그인 폼</div>
+					<div class="card-body">
+						<form method="post" action="login">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">mid</span>
+								</div>
+								<input type="text" name="mid" class="form-control"
+									value="${loginForm.mid}">
+								<form:errors cssClass="error" path="loginForm.mid" />
+							</div>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">mpassword</span>
+								</div>
+								<input type="password" name="mpassword" class="form-control"
+									value="${loginForm.mpassword}">
+								<form:errors cssClass="error" path="loginForm.mpassword" />
+							</div>
+							<input class="btn btn-info" type="submit" value="로그인" />
+						</form>
+					</div>
+				</div>
 		</div>
 	</div>
 </div>
 
-<%@ include file = "/WEB-INF/views/common/footer.jsp" %>
+
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
