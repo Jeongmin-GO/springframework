@@ -1,6 +1,7 @@
 package com.mycompany.webapp.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -86,6 +87,15 @@ public class Ch11Controller {
 		return "ch11/form2";
 	}
 	
+	@PostMapping("/form2")
+	public String handleForm2(@ModelAttribute("member") Ch11Member member) {
+		logger.info("실행");
+		logger.info("mtype : " + member.getMtype());
+		logger.info("mjob : " + member.getMjob());
+		logger.info("mcity : " + member.getMcity());
+		return "redirect:/ch11/content";
+	}
+	
 	@GetMapping("/form3")
 	public String form3(@ModelAttribute("member") Ch11Member member, Model model) {
 		logger.info("실행");
@@ -109,5 +119,62 @@ public class Ch11Controller {
 		member.setMskill(new int[] {1, 3});
 		
 		return "ch11/form3";
+	}
+	
+	@PostMapping("/form3")
+	public String handleForm3(@ModelAttribute("member") Ch11Member member) {
+		logger.info("실행");
+		
+		if(member.getMlanguage()!= null) {
+			for(String lang : member.getMlanguage()) {
+				logger.info("lang : " + lang);
+			}
+		}
+		
+		if(member.getMskill()!=null) {
+			System.out.println("mskill : " + Arrays.toString(member.getMskill()));
+		}
+		return "redirect:/ch11/content";
+	}
+	
+	
+	@GetMapping("/form4")
+	public String form4(@ModelAttribute("member") Ch11Member member, Model model) {
+		logger.info("실행");
+		
+		//jobList받아오기 (db에서 받아온다고 가정)
+		List<String> jobList = new ArrayList<>();
+		jobList.add("학생");
+		jobList.add("개발자");
+		jobList.add("디자이너");
+		model.addAttribute("jobList", jobList);
+		member.setMjob("개발자"); //디폴트값 설정 
+		
+		//드롭다운리스트의 항목을 추가할 목적
+		List<Ch11City> cityList = new ArrayList<>();
+		cityList.add(new Ch11City(1, "서울"));
+		cityList.add(new Ch11City(2, "부산"));
+		cityList.add(new Ch11City(3, "제주"));
+		model.addAttribute("cityList", cityList);
+		
+		member.setMcity(3);
+		
+		return "ch11/form4";
+	}
+	
+	@PostMapping("/form4")
+	public String handleForm4(@ModelAttribute("member") Ch11Member member) {
+		logger.info("실행");
+		
+		logger.info(member.getMjob());
+		logger.info("mcity : " + member.getMcity());
+		
+		return "redirect:/ch11/content";
+	}
+	
+	@GetMapping("/form5")
+	public String form5(@ModelAttribute("member") Ch11Member member) {
+		logger.info("실행");
+		return "ch11/form5";
 	}
 }

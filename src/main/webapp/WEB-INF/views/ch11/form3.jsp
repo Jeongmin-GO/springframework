@@ -18,18 +18,38 @@
 				  <label class="form-check-label" for="lang${status.count}">${language}</label>
 				</span>
 			</c:forEach>
+			<button class="btn btn-outline-success btn-sm">제출</button>
 		</form>
-		<form:form modelAttribute="member" method="post" action="form3"><!-- method(post)와 action은 생략 가능 -->
+		<form:form modelAttribute="member" method="post" action="form3" class="mt-3"><!-- method(post)와 action은 생략 가능 -->
 			<div class="form-check form-check-inline">
 				<form:checkboxes items="${languageList}" path="mlanguage" class="ml-2 mr-2"/>
 			</div>
+			<button class="btn btn-outline-success btn-sm">제출</button>
 		</form:form>
 		
-		<form:form modelAttribute="member" method="post" action="form3"><!-- method(post)와 action은 생략 가능 -->
+		<form:form modelAttribute="member" method="post" action="form3" class="mt-3"><!-- method(post)와 action은 생략 가능 -->
 			<div class="form-check form-check-inline">
 				<form:checkboxes items="${skillList}" path="mskill" itemValue="code" itemLabel="label" class="ml-2 mr-2"/>
 			</div>
+			<button class="btn btn-outline-success btn-sm">제출</button>
 		</form:form>
+		<div class="card m-2">
+	
+		<div class="card-header">
+			경무
+		</div>
+		<div class="card-body">
+		<form:form modelAttribute="member" method="post" action="form3">
+	
+				<div>
+					<form:checkboxes items="${skillList}" path="mskill"
+						itemValue="code" itemLabel="label"
+					/>
+				</div>
+				<button class="btn btn-success btn-sm">제출</button>
+			</form:form>
+		</div>
+</div>
 		
 <%-- 		<form method="get" action="form3">
 			<c:forEach var="language" items="${languageList}" varStatus="status">
