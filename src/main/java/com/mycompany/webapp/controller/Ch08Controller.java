@@ -1,6 +1,10 @@
 package com.mycompany.webapp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -11,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -116,18 +119,39 @@ public class Ch08Controller {
 	}
 	
 	
-	@GetMapping(value="/logoutAjax", produces="application/json;charset=UTF-8")
-	@ResponseBody
-	public String logoutAjax(HttpSession session) {
+//	@GetMapping(value="/logoutAjax", produces="application/json;charset=UTF-8")
+//	@ResponseBody
+//	public String logoutAjax(HttpSession session) {
+//		logger.info("실행");
+//		
+//		//session.invalidate();
+//		session.removeAttribute("sessionMid");
+//		
+//		JSONObject obj = new JSONObject();
+//		obj.put("result", "success");
+//		String json = obj.toString();
+//		return json;
+//	}
+	
+	@GetMapping(value="/logoutAjax")
+	public void logoutAjax(HttpSession session, HttpServletResponse res) throws IOException{
 		logger.info("실행");
 		
 		session.invalidate();
+		//session.removeAttribute("sessionMid");
+		
+		res.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
 		
 		JSONObject obj = new JSONObject();
 		obj.put("result", "success");
 		String json = obj.toString();
-		return json;
+		
+		pw.println(json);
+		//pw.flush();
+		//pw.close();
 	}
+	
 	//request에 범위에 지정되기 때문에 이것만 지정하면 요청을 할 때마다 실행함.
 	//하지만 클래스위에 @SessionAttributes를 같은 이름으로 지정해주면 딱 한 번만 실행하게 됨
 	// -> 지정한 변수명이 session에 없을 때에만 딱 한 번 실행 

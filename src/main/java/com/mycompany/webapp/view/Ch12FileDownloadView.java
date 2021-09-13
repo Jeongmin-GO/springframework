@@ -60,10 +60,20 @@ public class Ch12FileDownloadView extends AbstractView {
 		OutputStream os = response.getOutputStream();
 		
 		//입력 스트림 -> 출력 스트림
-		FileCopyUtils.copy(is, os);
-		is.close();
-		os.flush();
+		//FileCopyUtils.copy(is, os);
+		//동일한 동작을 하는 코드 작성해보기
+		byte[] data = new byte[1024];
+		int readByteNum = -1;
+		while(true) {
+			readByteNum = is.read(data);
+			if(readByteNum == -1) break;
+			os.write(data, 0, readByteNum);
+			os.flush();
+		}
+//		os.flush(); //FileCopyUtils.copy사용할 때
+				
 		os.close();		
+		is.close();
 	}
 
 }
