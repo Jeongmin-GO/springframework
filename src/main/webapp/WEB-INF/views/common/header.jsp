@@ -31,10 +31,12 @@
             <div>
                <div>
 			   		<c:if test="${sessionMid == null}">
-						<a href="login" class="btn btn-success btn-sm" href="${pageContext.request.contextPath}/ch08/login">로그인</a> 
+						<!-- <a href="login" class="btn btn-success btn-sm" href="${pageContext.request.contextPath}/ch08/login">로그인</a> -->
+						<a href="login" class="btn btn-success btn-sm" href="${pageContext.request.contextPath}/ch15/login">로그인</a> 
 					</c:if>
 					<c:if test="${sessionMid != null}">
-						<a href="logout" class="btn btn-dark btn-sm" href="${pageContext.request.contextPath}/ch08/logout">로그아웃</a> 
+						<!-- <a href="logout" class="btn btn-dark btn-sm" href="${pageContext.request.contextPath}/ch08/logout">로그아웃</a> -->
+						<a href="logout" class="btn btn-dark btn-sm" href="${pageContext.request.contextPath}/ch15/logout">로그아웃</a> 
 					</c:if>
                </div>
             </div>
