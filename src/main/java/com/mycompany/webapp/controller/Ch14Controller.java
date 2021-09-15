@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -16,10 +17,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.webapp.dto.Ch14Board;
 import com.mycompany.webapp.dto.Ch14Member;
+import com.mycompany.webapp.dto.Pager;
+import com.mycompany.webapp.service.Ch14BoardService;
 import com.mycompany.webapp.service.Ch14MemberService;
 import com.mycompany.webapp.service.Ch14MemberService.JoinResult;
+import com.mycompany.webapp.service.Ch14MemberService.loginResult;
 
 
 @Controller
@@ -178,6 +184,84 @@ public class Ch14Controller {
    
    @PostMapping("/login")
    public String login(Ch14Member member, Model model) {
-	   return "redirect:/ch14/content";
+	   loginResult ls = memberService.login(member);
+	   if(ls == loginResult.SUCCESS) {
+		   return "redirect:/ch14/content";
+	   }else if (ls==loginResult.ID_FAIL){
+		   model.addAttribute("error", "아이디가 존재하지 않습니다. 다시 시도해주세요.");
+		   return "ch14/loginForm";
+	   }else if (ls==loginResult.PW_FAIL){
+		   model.addAttribute("error", "비밀번호가 잘못되었습니다. 다시 시도해주세요.");
+		   return "ch14/loginForm";
+	   }else {
+		   model.addAttribute("error", "회원 가입 실패했습니다. 다시 시도해주세요.");
+		   return "ch14/loginForm";
+	   }
+   }
+   
+   @Resource
+   private Ch14BoardService boardService;
+   
+//   boolean isFirst = true;
+   
+   @GetMapping("/boardList")
+   public String boardList(@RequestParam(defaultValue="1") int pageNo, Model model) {
+	   //페이징 처리를 위해 임의의 게시글300개 반복 작성 
+//	   if(isFirst == true) {
+//		   for(int i=1; i<=300; i++) {
+//			   Ch14Board board = new Ch14Board();
+//			   board.setBtitle("제목" + i);
+//			   board.setBcontent("내용" +i);
+//			   board.setMid("user");
+//			   boardService.writeBoard(board);
+//		   }
+//		   isFirst = false;
+//	   }
+	   
+	   int totalRows = boardService.getTotalBoard();
+	   Pager pager = new Pager(10, 5, totalRows, pageNo); //10개의 게시글, 5그룹씩, ?, ?
+	   model.addAttribute("pager", pager);
+	   
+	   
+	   List<Ch14Board> boards = boardService.getBoards(pager);
+	   model.addAttribute("boards", boards); //jsp에서 사용할 수 있음 
+	   return "ch14/boardList";
+   }
+ 
+   @GetMapping("/boardWriteForm")
+   public String boardWriteForm() {
+	   return "ch14/boardWriteForm";
+   }
+   
+   @PostMapping("/boardWrite")
+   public String boardWrite(Ch14Board board) {
+	   boardService.writeBoard(board);
+	   return "redirect:/ch14/boardList";
+   }
+   
+   @GetMapping("/boardDetail")
+   public String boardDetail(int bno, Model model) {
+	   Ch14Board board = boardService.getBoard(bno);
+	   model.addAttribute("board", board);
+	   return "ch14/boardDetail";
+   }
+   
+   @GetMapping("/boardUpdateForm")
+   public String boardUpdateForm(int bno, Model model) {
+	   Ch14Board board = boardService.getBoard(bno);
+	   model.addAttribute("board", board);
+	   return "ch14/boardUpdateForm";
+   }
+   
+   @PostMapping("/boardUpdate")
+   public String boardUpdate(Ch14Board board) {
+	   boardService.updateBoard(board);
+	   return "redirect:/ch14/boardDetail?bno=" + board.getBno();
+   }
+   
+   @GetMapping("/boardDelete")
+   public String boardDelete(int bno) {
+	   boardService.deleteBoard(bno);
+	   return "redirect:/ch14/boardList";
    }
 }

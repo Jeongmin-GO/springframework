@@ -15,11 +15,13 @@ public class Ch14MemberDao {
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public void insert(Ch14Member member) {
-		sqlSessionTemplate.insert("member.insert", member);
+	public int insert(Ch14Member member) {
+		int rows = sqlSessionTemplate.insert("mybatis.mapper.member.insert", member);
+		return rows;
 	}
 	
 	public Ch14Member selectByMid(String mid) {
-		return sqlSessionTemplate.selectOne("member.selectByMid", mid);
+		return sqlSessionTemplate.selectOne("mybatis.mapper.member.selectByMid", mid);
 	}
+
 }

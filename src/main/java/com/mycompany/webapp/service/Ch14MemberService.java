@@ -17,6 +17,13 @@ public class Ch14MemberService {
 		FAIL,
 		DUPLICATED
 	}
+	
+	public enum loginResult{
+		SUCCESS,
+		ID_FAIL,
+		PW_FAIL,
+		FAIL
+	};
 
 	//회원 가입을 처리하는 비즈니스 로직 
 	public JoinResult join(Ch14Member member) {
@@ -36,7 +43,22 @@ public class Ch14MemberService {
 			e.printStackTrace();
 			return JoinResult.FAIL;
 		}
-		
+	}
+	
+	public loginResult login(Ch14Member member) {
+		try {
+			Ch14Member dbMember = memberDao.selectByMid(member.getMid());
+			
+			if(dbMember == null) {
+				return loginResult.ID_FAIL;
+			}else if(!dbMember.getMpassword().equals(member.getMpassword())){
+				return loginResult.PW_FAIL;
+			}else
+				return loginResult.SUCCESS;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return loginResult.FAIL;
+		}
 	}
 	
 }
