@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <table class="table table-sm table-bordered">
      <tr>
         <th style="width:50px">번호</th>
@@ -19,4 +20,5 @@
 		</tr>
 	</c:forEach>
 </table>
+
 

@@ -1,10 +1,13 @@
 package com.mycompany.webapp.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mycompany.webapp.dto.Ch14Board;
 import com.mycompany.webapp.dto.Ch14Member;
@@ -116,14 +120,40 @@ public class Ch15Controller {
 		//session.invalidate();
 		return "redirect:/";
 	}
-	
-	//jsp파일 ch14/boardList 
-	@GetMapping("/boardList")
-	public String boardList(Model model) {
-		logger.info("실행");
+	//jsp파일 ch14/boardList
+	@GetMapping("/boardList1")
+	public String boardList1(Model model) {
+		logger.info("실행2");
 		Pager pager = new Pager(5, 5, bservice.getTotalBoard(), 1);
 		List<Ch14Board> boards = bservice.getBoards(pager);
 		model.addAttribute("boards", boards);
 		return "ch15/boardList";
+	}
+	@GetMapping(value="/boardList2", produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String boardList2(Model model) {
+		logger.info("실행2");
+		Pager pager = new Pager(5, 5, bservice.getTotalBoard(), 1);
+		List<Ch14Board> boards = bservice.getBoards(pager);
+//		model.addAttribute("boards", boards);
+		JSONObject obj = new JSONObject();
+		obj.put("result", "success");
+//		obj.put("boards", boards);
+		
+		//jsp에서 board.bdate를 원하는 형식으로 포맷할 수 없어서 포맷해서 jsonarray에 넣어주기
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		JSONArray array = new JSONArray();
+		for(Ch14Board board: boards) {
+			JSONObject boardobj = new JSONObject();
+			boardobj.put("bno", board.getBno());
+			boardobj.put("btitle", board.getBtitle());
+			boardobj.put("bdate", sdf.format(board.getBdate()));
+			boardobj.put("mid", board.getMid());
+			array.put(boardobj);
+		}
+		obj.put("boards", array);
+		
+		String json = obj.toString();
+		return json;
 	}
 }
