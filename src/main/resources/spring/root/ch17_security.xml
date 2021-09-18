@@ -10,22 +10,36 @@
 	<!-- 인증 절차를 설정 -->
 	<security:http>
 		<!-- 인증 방식 설정: Form 인증 방식 -->
+		<!-- <security:form-login
+			login-page="/ch17/loginForm"
+			username-parameter="mid"
+			password-parameter="mpassword"
+			login-processing-url="/login"
+			always-use-default-target="false"
+			default-target-url="/"
+			authentication-failure-url="/ch17/loginForm"
+			/> -->
+			
 		<security:form-login
 			login-page="/ch17/loginForm"
 			username-parameter="mid"
 			password-parameter="mpassword"
 			login-processing-url="/login"
-			always-use-default-target="true"
-			default-target-url="/ch17/content"
-			authentication-failure-url="/ch17/loginForm"
+			authentication-success-handler-ref="authenticationSuccessHandler"
+			authentication-failure-handler-ref="authenticationFailureHandler"
 			/>
 		
 		<!-- 로그아웃 설정 -->
+		<!-- <security:logout 
+			logout-url="/logout"
+			logout-success-url="/ch17/content"/> -->
 		<security:logout 
 			logout-url="/logout"
-			logout-success-url="/ch17/content"/>
+			success-handler-ref="logoutSuccessHandler"
+			/>
 			
 		<!-- 사이트간 요청 위조 방지 비활성화 -->
+		<!-- logout도 post방식으로 요청(_csrf의 토큰을 전달해야 함)-->
 		<security:csrf disabled="true"/>
 		
 		<!-- 요청 URL 권한 설정 -->
@@ -36,6 +50,24 @@
 		
 		<!-- 권한 없음일 경우 보여줄 페이지 설정 -->
 		<security:access-denied-handler error-page="/ch17/error403"/>
+		
+		<!-- 로그인 중복 방지를 위한 설정 -->
+		<security:session-management>
+			<!--
+				max-sessions:최대 세션수
+				error-if-maximum-exceeded: 세션이 초과되었을 때 기존 브라우저 에러 발생 여부, true면 다른 곳에서 로그인 할 수 없음 
+				expired-url : 인증이 무효화된 사용자가 이동하는 페이지
+			-->
+			
+			<!-- 이전 로그인을 유효하게 만들기  -->
+			<!-- <security:concurrency-control max-sessions="1"
+										  error-if-maximum-exceeded="true"/> -->
+										  
+			<!-- 최종 로그인을 유효하게 만들기  -->
+			<security:concurrency-control max-sessions="1"
+										  error-if-maximum-exceeded="false"
+										  expired-url="/ch17/loginForm"/>
+		</security:session-management>
 	</security:http>
 	
 	<!-- 권한 계층 설정 -->
@@ -69,4 +101,20 @@
 								users-by-username-query="SELECT mid, mpassword, menabled FROM member WHERE mid=?"
 								authorities-by-username-query="SELECT mid, mrole FROM member WHERE mid=?"/>
    
+	<!--서비스도 레포지토리도 아니지만 루트에서 사용해야하기 때문에 root xml 에서 직접 관리빈으로 지정-->
+	<bean id="authenticationSuccessHandler" class="com.mycompany.webapp.security.Ch17AuthenticationSuccessHandler">
+		<!-- 로그인 성공 후 리다이렉트로 이동할 경로 -->
+		<property name="alwaysUseDefaultTargetUrl" value="false"/>
+		<property name="defaultTargetUrl" value="/"/>
+	</bean>
+	
+	<bean id="authenticationFailureHandler" class="com.mycompany.webapp.security.Ch17AuthenticationFailureHandler"> 
+		<!-- 로그인 실패 후 리다이렉트로 이동할 경로 -->
+		<property name="defaultFailureUrl" value="/ch17/loginForm"/>
+	</bean>
+	
+	<bean id="logoutSuccessHandler" class="com.mycompany.webapp.security.Ch17LogoutSuccessHandler">
+		<!-- 로그아웃 성공 후 리다이렉트로 이동할 경로 -->
+		<property name="defaultTargetUrl" value="/ch17/content"/>
+	</bean>
 </beans>
