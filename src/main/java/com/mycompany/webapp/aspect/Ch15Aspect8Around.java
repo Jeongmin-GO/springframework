@@ -68,10 +68,5 @@ public class Ch15Aspect8Around {
 		}
 			Object result = joinPoint.proceed();
 			return result;
-//		}else {
-//			//controller의 return에 적혀져 있는 jsp의 뷰이름을 리턴하게 되는 것
-//			Object result = joinPoint.proceed();
-//			return result;
-//		}
 	}
 }

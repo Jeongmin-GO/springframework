@@ -38,12 +38,6 @@
 					$.ajax({
 						url : "boardList1",
 					}).done((data)=>{
-						/* if(data.result === "loginNeed"){
-							/* $("#boardList").html("로그인 필요");
-							window.location.href="login";
-						}else{
-							$("#boardList").html(data);
-						} */
 						if(data.result === "authFail"){
 							$("#boardList").html("로그인 필요");
 							window.location.href="login";
@@ -70,8 +64,6 @@
 							html += '		<th style="width:100px">글쓴이</th>';
 							html += '		<th style="width:100px">날짜</th>';
 							html += '	</tr>';
-							
-			
 							
 							for(var board of data.boards){
 								html += '	<tr>';
