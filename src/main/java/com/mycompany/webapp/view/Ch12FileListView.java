@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.AbstractView;
 @Component
 public class Ch12FileListView extends AbstractView{
 
+	
 	private static final Logger logger = LoggerFactory.getLogger(Ch12FileListView.class);
 
 	@Override
